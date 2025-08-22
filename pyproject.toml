@@ -1,0 +1,15 @@
+[project]
+name = "pyrefly-pre-commit"
+version = "0.0.1"
+description = "A pre-commit hook for Pyrefly (type checker) with both pinned PyPI and system modes."
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+authors = [{ name = "Pyrefly contributors"}]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Software Development :: Quality Assurance",
+    "Topic :: Software Development :: Testing",
+]
