@@ -16,7 +16,7 @@ Add one of the following to your project's `.pre-commit-config.yaml`:
 ```yaml
 repos:
   - repo: https://github.com/facebook/pyrefly-pre-commit
-    rev: v0.0.1
+    rev: 0.0.1
     hooks:
       - id: pyrefly-typecheck-system
         name: Pyrefly (type checking)
@@ -28,12 +28,12 @@ repos:
 ```yaml
 repos:
   - repo: https://github.com/facebook/pyrefly-pre-commit
-    rev: v0.0.1
+    rev: 0.0.1
     hooks:
       - id: pyrefly-typecheck-specific-version
         name: Pyrefly (type checking)
         pass_filenames: false
-        additional_dependencies: ["pyrefly==0.29.2"] # Specifiy the version of pyrefly to install
+        additional_dependencies: ["pyrefly==0.30.0"] # Specifiy the version of pyrefly to install
 ```
 
 Then install and run:
