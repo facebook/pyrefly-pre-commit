@@ -13,3 +13,6 @@ classifiers = [
     "Topic :: Software Development :: Quality Assurance",
     "Topic :: Software Development :: Testing",
 ]
+dependencies = [
+    "pyrefly==0.31.1",
+]
