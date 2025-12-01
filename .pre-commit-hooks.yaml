@@ -1,15 +1,5 @@
-- id: pyrefly-typecheck-system
-  name: pyrefly-typecheck-system
-  description: "Run `pyrefly check` using the system-installed `pyrefly`."
-  entry: pyrefly check
-  language: system
-  types_or: [python, pyi]
-  pass_filenames: false
-  require_serial: true
-  stages: [pre-commit, pre-merge-commit, pre-push, manual]
-
-- id: pyrefly-typecheck-specific-version
-  name: pyrefly-typecheck-specific-version
+- id: pyrefly-check
+  name: pyrefly check
   description: "Run `pyrefly check` with user-specified version via additional_dependencies."
   entry: pyrefly check
   language: python

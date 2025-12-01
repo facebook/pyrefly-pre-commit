@@ -1,7 +1,7 @@
 [project]
 name = "specific-version-hook-example"
 version = "0.1.0"
-description = "Example project using pyrefly-typecheck-specific-version hook"
+description = "Example project using pyrefly hook with managed install"
 requires-python = ">=3.9"
 dependencies = [
     "packaging==25.0",

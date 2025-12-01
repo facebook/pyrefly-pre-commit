@@ -1,7 +1,7 @@
 [project]
 name = "system-hook-example"
 version = "0.1.0"
-description = "Example project using pyrefly-typecheck-system hook"
+description = "Example project using pyrefly hook with system install"
 requires-python = ">=3.9"
 dependencies = [
     "packaging==25.0",

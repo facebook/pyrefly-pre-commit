@@ -11,7 +11,7 @@ on:
 
 jobs:
   test-system-hook:
-    name: Test pyrefly-typecheck-system hook
+    name: Test pyrefly hook (system-hook example)
     runs-on: ubuntu-latest
 
     steps:
@@ -35,7 +35,7 @@ jobs:
         run: pre-commit run --all-files --show-diff-on-failure
 
   test-specific-version-hook:
-    name: Test pyrefly-typecheck-specific-version hook
+    name: Test pyrefly hook (specific-version-hook example)
     runs-on: ubuntu-latest
 
     steps:
