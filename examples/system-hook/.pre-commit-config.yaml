@@ -1,5 +1,5 @@
 repos:
-  - repo: https://github.com/rchen152/pyrefly-pre-commit
+  - repo: https://github.com/facebook/pyrefly-pre-commit
     rev: 0.42.0
     hooks:
       - id: pyrefly-check
