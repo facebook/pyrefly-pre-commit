@@ -62,7 +62,7 @@ pre-commit run --all-files
 
 - We run `pyrefly check` at the repo root and **ignore filenames from pre-commit** (`pass_filenames: false`), since Pyrefly checks project state rather than individual files.
 - The hook targets `stages: [pre-commit, pre-merge-commit, pre-push, manual]` so you can run it locally and in CI.
-- You can **skip temporarily** with `SKIP=pyrefly git commit -m "..."`.
+- You can **skip temporarily** with `SKIP=pyrefly-check git commit -m "..."`.
 - Add `args` to pass flags to Pyrefly, e.g. `["--ignore-missing-source"]`. See full config options here: [https://pyrefly.org/en/docs/configuration/](https://pyrefly.org/en/docs/configuration/)
 
 ## CI example
