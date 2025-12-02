@@ -2,6 +2,9 @@
 
 A **pre-commit** hook for [Pyrefly](https://github.com/facebook/pyrefly).
 
+NOTE: This pre-commit hook changed significantly from version 0.0.1 to version 0.42.0.
+See the [Migration from 0.0.1](#migration-from-001) section for how to upgrade.
+
 ## Usage
 
 There are two ways to use the `pyrefly-check` hook. Add one of the following to your project's `.pre-commit-config.yaml`:
@@ -58,14 +61,14 @@ pre-commit install
 pre-commit run --all-files
 ```
 
-## Behavior and defaults
+## Behavior and Defaults
 
 - We run `pyrefly check` at the repo root and **ignore filenames from pre-commit** (`pass_filenames: false`), since Pyrefly checks project state rather than individual files.
 - The hook targets `stages: [pre-commit, pre-merge-commit, pre-push, manual]` so you can run it locally and in CI.
 - You can **skip temporarily** with `SKIP=pyrefly-check git commit -m "..."`.
 - Add `args` to pass flags to Pyrefly, e.g. `["--ignore-missing-source"]`. See full config options here: [https://pyrefly.org/en/docs/configuration/](https://pyrefly.org/en/docs/configuration/)
 
-## CI example
+## CI Example
 
 Use the official `pre-commit/action` to run the hook in GitHub Actions:
 
@@ -87,6 +90,66 @@ jobs:
         with:
           extra_args: --all-files
 ```
+
+## Migration from 0.0.1
+
+In version 0.0.1, this repository offered two hooks, `pyrefly-typecheck-system` and
+`pyrefly-typecheck-specific-version`. Since 0.42.0, these hooks have been consolidated
+into a single `pyrefly-check` hook.
+
+To migrate from `pyrefly-typecheck-system`, change:
+
+```
+repos:
+  - repo: https://github.com/facebook/pyrefly-pre-commit
+    rev: 0.0.1
+    hooks:
+      - id: pyrefly-typecheck-system
+        name: Pyrefly (type checking)
+        pass_filenames: false
+```
+
+to:
+
+```
+repos:
+  - repo: https://github.com/facebook/pyrefly-pre-commit
+    rev: 0.42.0
+    hooks:
+      - id: pyrefly-check
+        name: Pyrefly (type checking)
+        pass_filenames: false
+        language: system
+```
+
+To migrate from `pyrefly-typecheck-specific-version`, change:
+
+```
+repos:
+  - repo: https://github.com/facebook/pyrefly-pre-commit
+    rev: 0.0.1
+    hooks:
+      - id: pyrefly-typecheck-specific-version
+        name: Pyrefly (type checking)
+        pass_filenames: false
+        additional_dependencies:
+          - pyrefly==0.42.0
+```
+
+to:
+
+```
+repos:
+  - repo: https://github.com/facebook/pyrefly-pre-commit
+    rev: 0.42.0
+    hooks:
+      - id: pyrefly-check
+        name: Pyrefly (type checking)
+        pass_filenames: false
+```
+
+Note that if you were using `pyrefly-typecheck-specific-version` with a version
+of pyrefly older than 0.42.0, you'll need to upgrade to 0.42.0 or newer.
 
 ## License
 
