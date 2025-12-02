@@ -1,6 +1,6 @@
 - id: pyrefly-check
   name: pyrefly check
-  description: "Run `pyrefly check` with user-specified version via additional_dependencies."
+  description: "Run `pyrefly check` for Python type checking."
   entry: pyrefly check
   language: python
   types_or: [python, pyi]

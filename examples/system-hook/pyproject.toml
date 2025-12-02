@@ -10,5 +10,5 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
     "pre-commit==4.5.0",
-    "pyrefly==0.43.1",
+    "pyrefly==0.42.0",
 ]

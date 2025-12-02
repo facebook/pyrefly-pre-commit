@@ -13,7 +13,7 @@ Use an already-installed `pyrefly` so your CLI/CI/IDE versions stay in sync:
 ```yaml
 repos:
   - repo: https://github.com/facebook/pyrefly-pre-commit
-    rev: 0.0.1
+    rev: 0.42.0  # Note: this is the version of the pre-commit hook, NOT the pyrefly version used for type checking
     hooks:
       - id: pyrefly-check
         name: Pyrefly (type checking)
@@ -26,21 +26,21 @@ The hook will be able to see your project's other installed dependencies when ty
 
 ### Option 2: Managed Install
 
-Let pre-commit manage the pyrefly installation with a specific version:
+Let pre-commit manage the pyrefly installation:
 
 ```yaml
 repos:
   - repo: https://github.com/facebook/pyrefly-pre-commit
-    rev: 0.0.1
+    rev: 0.42.0  # The pyrefly version to use
     hooks:
       - id: pyrefly-check
         name: Pyrefly (type checking)
         pass_filenames: false
-        additional_dependencies:
-          - pyrefly==0.30.0  # Specify the version of pyrefly to install
+        additional_dependencies: [ ... ]  # Your project's dependencies
 ```
 
-This approach pins the tool version for full reproducibility without requiring pyrefly as a project dependency. Note that you must list all of your project's dependencies in `additional_dependencies` for type checking to work correctly.
+Note that you must list all of your project's dependencies (aside from `pyrefly`, which is bundled with the hook)
+in `additional_dependencies` for type checking to work correctly.
 
 ### Examples
 
