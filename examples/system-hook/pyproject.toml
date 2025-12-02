@@ -10,5 +10,5 @@ dependencies = [
 [dependency-groups]
 dev = [
     "pre-commit==4.5.0",
-    "pyrefly==0.42.2",
+    "pyrefly==0.42.3",
 ]
