@@ -1,0 +1,59 @@
+name: Test Pre-commit Hooks
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * 0'  # Run weekly on Sundays at midnight UTC
+
+jobs:
+  test-system-hook:
+    name: Test pyrefly hook (system-hook example)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install uv
+        run: pip install uv
+
+      - name: Install dependencies
+        working-directory: examples/system-hook
+        run: uv pip install -r pyproject.toml --group dev --system
+
+      - name: Run pre-commit on system-hook example
+        working-directory: examples/system-hook
+        run: pre-commit run --all-files --show-diff-on-failure
+
+  test-specific-version-hook:
+    name: Test pyrefly hook (specific-version-hook example)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install uv
+        run: pip install uv
+
+      - name: Install dependencies
+        working-directory: examples/specific-version-hook
+        run: uv pip install -r pyproject.toml --group dev --system
+
+      - name: Run pre-commit on specific-version-hook example
+        working-directory: examples/specific-version-hook
+        run: pre-commit run --all-files --show-diff-on-failure

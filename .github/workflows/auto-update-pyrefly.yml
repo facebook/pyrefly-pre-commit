@@ -1,0 +1,66 @@
+name: Auto-update Pyrefly Version
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Run daily at 10:00 UTC to check for new pyrefly releases
+    - cron: '0 10 * * *'
+
+jobs:
+  update-pyrefly:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Get versions to update
+        id: get-versions
+        run: |
+          # Get current version from pyproject.toml
+          CURRENT_VERSION=$(grep -oP 'pyrefly==\K[0-9.]+' pyproject.toml)
+          echo "Current version: $CURRENT_VERSION"
+          echo "current_version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
+
+          # Install packaging library and run script
+          python -m pip install --quiet packaging
+          VERSIONS_TO_UPDATE=$(python get_versions.py "$CURRENT_VERSION")
+
+          if [ -z "$VERSIONS_TO_UPDATE" ]; then
+            echo "No updates needed - already at latest version"
+            echo "versions_list=" >> $GITHUB_OUTPUT
+            echo "needs_update=false" >> $GITHUB_OUTPUT
+          else
+            echo "Versions to update: $VERSIONS_TO_UPDATE"
+            echo "versions_list=$VERSIONS_TO_UPDATE" >> $GITHUB_OUTPUT
+            echo "needs_update=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Configure Git
+        if: steps.get-versions.outputs.needs_update == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Update to each version
+        if: steps.get-versions.outputs.needs_update == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSIONS="${{ steps.get-versions.outputs.versions_list }}"
+          CURRENT_VERSION="${{ steps.get-versions.outputs.current_version }}"
+
+          # Run the update script
+          ./update-versions.sh "$CURRENT_VERSION" $VERSIONS
+
+          # Push all commits and tags at once
+          echo "Pushing all commits and tags..."
+          git push origin ${{ github.ref_name }}
+          git push origin --tags
