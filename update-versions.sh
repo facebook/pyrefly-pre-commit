@@ -18,8 +18,8 @@ shopt -s globstar
 for NEW_VERSION in $VERSIONS; do
   echo "Updating from $CURRENT_VERSION to $NEW_VERSION"
 
-  # Update pyrefly== in all pyproject.toml files
-  sed -i "s/pyrefly==$CURRENT_VERSION/pyrefly==$NEW_VERSION/g" **/pyproject.toml
+  # Update pyrefly== in all pyproject.toml files and README.md
+  sed -i "s/pyrefly==$CURRENT_VERSION/pyrefly==$NEW_VERSION/g" **/pyproject.toml README.md
 
   # Update rev: in all .pre-commit-config.yaml files and README.md
   sed -i "s/rev: $CURRENT_VERSION/rev: $NEW_VERSION/g" **/.pre-commit-config.yaml README.md
