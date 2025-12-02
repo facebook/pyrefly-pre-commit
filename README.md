@@ -134,7 +134,7 @@ repos:
         name: Pyrefly (type checking)
         pass_filenames: false
         additional_dependencies:
-          - pyrefly==0.42.0
+          - pyrefly==0.44.0
 ```
 
 to:
