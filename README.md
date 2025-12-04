@@ -17,7 +17,7 @@ Use an already-installed `pyrefly` so your CLI/CI/IDE versions stay in sync:
 ```yaml
 repos:
   - repo: https://github.com/facebook/pyrefly-pre-commit
-    rev: 0.44.0  # Note: this is the version of the pre-commit hook, NOT the pyrefly version used for type checking
+    rev: 0.44.1  # Note: this is the version of the pre-commit hook, NOT the pyrefly version used for type checking
     hooks:
       - id: pyrefly-check
         name: Pyrefly (type checking)
@@ -35,7 +35,7 @@ Let pre-commit manage the pyrefly installation:
 ```yaml
 repos:
   - repo: https://github.com/facebook/pyrefly-pre-commit
-    rev: 0.44.0  # The pyrefly version to use
+    rev: 0.44.1  # The pyrefly version to use
     hooks:
       - id: pyrefly-check
         name: Pyrefly (type checking)
@@ -115,7 +115,7 @@ to:
 ```
 repos:
   - repo: https://github.com/facebook/pyrefly-pre-commit
-    rev: 0.44.0
+    rev: 0.44.1
     hooks:
       - id: pyrefly-check
         name: Pyrefly (type checking)
@@ -134,7 +134,7 @@ repos:
         name: Pyrefly (type checking)
         pass_filenames: false
         additional_dependencies:
-          - pyrefly==0.44.0
+          - pyrefly==0.44.1
 ```
 
 to:
@@ -142,7 +142,7 @@ to:
 ```
 repos:
   - repo: https://github.com/facebook/pyrefly-pre-commit
-    rev: 0.44.0
+    rev: 0.44.1
     hooks:
       - id: pyrefly-check
         name: Pyrefly (type checking)
