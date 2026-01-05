@@ -1,8 +1,9 @@
-"""A simple example that uses a third-party dependency."""
 # Copyright (c) Meta Platforms, Inc. and affiliates.
 #
 # This source code is licensed under the MIT license found in the
 # LICENSE file in the root directory of this source tree.
+
+"""A simple example that uses a third-party dependency."""
 
 import sys
 
