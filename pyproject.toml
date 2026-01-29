@@ -7,7 +7,7 @@ requires-python = ">=3.8"
 license = {text = "MIT"}
 authors = [{ name = "Pyrefly contributors"}]
 dependencies = [
-    "pyrefly==0.50.0",
+    "pyrefly==0.50.1",
 ]
 classifiers = [
     "License :: OSI Approved :: MIT License",
