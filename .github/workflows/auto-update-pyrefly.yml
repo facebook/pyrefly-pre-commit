@@ -2,6 +2,11 @@ name: Auto-update Pyrefly Version
 
 on:
   workflow_dispatch:
+    inputs:
+      versions:
+        description: 'Space-separated pyrefly versions to mirror (e.g. "1.3.2 1.4.0.dev2"). Leave empty to mirror all new versions.'
+        required: false
+        default: ''
   schedule:
     # Run daily at 10:00 UTC to check for new pyrefly releases
     - cron: '0 10 * * *'
@@ -23,18 +28,16 @@ jobs:
 
       - name: Get versions to update
         id: get-versions
+        env:
+          REQUESTED_VERSIONS: ${{ inputs.versions }}
         run: |
-          # Get current version from pyproject.toml
-          CURRENT_VERSION=$(grep -oP 'pyrefly==\K[0-9]+\.[0-9]+\.[0-9]+(\.dev[0-9]+)?' pyproject.toml)
-          echo "Current version: $CURRENT_VERSION"
-          echo "current_version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
-
           # Install packaging library and run script
           python -m pip install --quiet packaging
-          VERSIONS_TO_UPDATE=$(python get_versions.py "$CURRENT_VERSION")
+          read -ra REQUESTED <<< "$REQUESTED_VERSIONS"
+          VERSIONS_TO_UPDATE=$(python get_versions.py "${REQUESTED[@]}")
 
           if [ -z "$VERSIONS_TO_UPDATE" ]; then
-            echo "No updates needed - already at latest version"
+            echo "No updates needed - all versions are already mirrored"
             echo "versions_list=" >> $GITHUB_OUTPUT
             echo "needs_update=false" >> $GITHUB_OUTPUT
           else
@@ -55,10 +58,9 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           VERSIONS="${{ steps.get-versions.outputs.versions_list }}"
-          CURRENT_VERSION="${{ steps.get-versions.outputs.current_version }}"
 
           # Run the update script
-          ./update-versions.sh "$CURRENT_VERSION" $VERSIONS
+          ./update-versions.sh $VERSIONS
 
           # Push all commits and tags at once
           echo "Pushing all commits and tags..."
